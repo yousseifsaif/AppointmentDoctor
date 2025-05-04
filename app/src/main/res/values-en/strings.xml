@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Appointment Doctors</string>
+    <string name="nav1">Appointment</string>
+    <string name="dontHaveAccount">Don\'t have an account? Create one now</string>
+    <string name="Welcome">Welcome 👋</string>
+    <string name="Logintocontinoue">Log in to continue</string>
+    <string name="usernameorpasswordinvalid">Invalid username or email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="Noappointmentsbooked">No appointments booked</string>
+    <string name="doctor">Doctor: %1$s</string>
+    <string name="specialty">Specialty: %1$s</string>
+    <string name="time">Time: %1$s</string>
+    <string name="day">Day: %1$s</string>
+    <string name="Cancelappointment">Cancel appointment</string>
+    <string name="_10_00am">10:00 AM</string>
+    <string name="_12_00pm">12:00 PM</string>
+    <string name="_3_00pm">3:00 PM</string>
+    <string name="_5_00pm">5:00 PM</string>
+    <string name="Bookanappointmentwith">Book an appointment with: %1$s</string>
+    <string name="choosetheday">Choose the suitable day:</string>
+    <string name="choosethetime">Choose the suitable time:</string>
+    <string name="confirmappointment">Confirm Appointment</string>
+    <string name="done">Done</string>
+    <string name="Yourreservationhasbeencompletedsuccessfully">Reservation completed successfully</string>
+    <string name="Yourappointmenthasbeensuccessfullyconfirmed">Your appointment confirmed</string>
+    <string name="time1">Appointment: %1$s - %2$s</string>
+    <string name="logout">Logout</string>
+    <string name="availabledoctors">Available Doctors</string>
+    <string name="Therearenodoctorscurrentlyavailable">There are no doctors currently available</string>
+    <string name="docpic">Doctor Picture</string>
+    <string name="Availableappointments">Available appointments: %1$s</string>
+    <string name="booknow">Book Now</string>
+    <string name="createacc">Create an account📝</string>
+    <string name="Pleaseenteryourinformationcarefully">Please enter your information carefully</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="mobile">Mobile number</string>
+    <string name="conpassword">Confirm password</string>
+    <string name="createaccount">Create Account</string>
+</resources>

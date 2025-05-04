@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Appointment Doctors</string>
+    <string name="nav1">Appointment</string>
+    <string name="dontHaveAccount">ليس لديك حساب؟ أنشئ حساب الآن</string>
+    <string name="Welcome">مرحبًا بك 👋</string>
+    <string name="Logintocontinoue">سجّل الدخول للمتابعة</string>
+    <string name="usernameorpasswordinvalid">اسم المستخدم أو البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="Noappointmentsbooked">لا توجد مواعيد محجوزة</string>
+    <string name="doctor">الدكتور: %1$s</string>
+    <string name="specialty">التخصص: %1$s</string>
+    <string name="time">الوقت: %1$s</string>
+    <string name="day">اليوم: %1$s</string>
+    <string name="Cancelappointment">إلغاء الموعد</string>
+    <string name="_10_00am">10:00 ص</string>
+    <string name="_12_00pm">12:00 م</string>
+    <string name="_3_00pm">3:00 م</string>
+    <string name="_5_00pm">5:00 م</string>
+    <string name="Bookanappointmentwith">حجز موعد مع: %1$s</string>
+    <string name="choosetheday">اختر اليوم المناسب:</string>
+    <string name="choosethetime">اختر الوقت المناسب:</string>
+    <string name="confirmappointment">تأكيد الحجز</string>
+    <string name="done">تم</string>
+    <string name="Yourreservationhasbeencompletedsuccessfully">تم الحجز بنجاح</string>
+    <string name="Yourappointmenthasbeensuccessfullyconfirmed">تم تأكيد حجز الموعد بنجاح</string>
+    <string name="time1">الموعد: %1$s - %2$s</string>
+    <string name="logout">تسجيل الخروج</string>
+    <string name="availabledoctors">الأطباء المتاحين</string>
+    <string name="Therearenodoctorscurrentlyavailable">لا توجد أطباء متاحين حاليًا</string>
+    <string name="docpic">صورة الطبيب</string>
+    <string name="Availableappointments">المواعيد المتاحة: %1$s</string>
+    <string name="booknow">احجز الآن</string>
+    <string name="createacc">إنشاء حساب جديد 📝</string>
+    <string name="Pleaseenteryourinformationcarefully">من فضلك أدخل بياناتك بعناية</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="mobile">رقم الهاتف</string>
+    <string name="conpassword">تأكيد كلمة المرور</string>
+    <string name="createaccount">إنشاء الحساب</string>
+
+</resources>

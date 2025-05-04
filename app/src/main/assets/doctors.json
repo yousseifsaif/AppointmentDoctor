@@ -1,0 +1,272 @@
+[
+  {
+    "name": "Dr. yousseif Saif",
+    "specialty": "Cardiology",
+    "availableDays": ["Sunday", "Tuesday"],
+    "availableHours": "13:00-16:00"
+  },
+  {
+    "name": "Dr. Ahmed Sami",
+    "specialty": "Dermatology",
+    "availableDays": ["Sunday", "Tuesday"],
+    "availableHours": "13:00-16:00"
+  },
+  {
+    "name": "Dr. Yusuf Mahmoud",
+    "specialty": "Orthopedics",
+    "availableDays": ["Saturday", "Thursday"],
+    "availableHours": "10:00-12:00, 14:00-16:00"
+  },
+  {
+    "name": "Dr. Fatima Ali",
+    "specialty": "Dermatology",
+    "availableDays": ["Monday", "Wednesday"],
+    "availableHours": "09:00-15:00"
+  },
+  {
+    "name": "Dr. Leila Hassan",
+    "specialty": "Obstetrics and Gynecology",
+    "availableDays": ["Sunday", "Thursday"],
+    "availableHours": "10:00-14:00"
+  },
+  {
+    "name": "Dr. Khaled Omran",
+    "specialty": "ENT",
+    "availableDays": ["Tuesday", "Wednesday"],
+    "availableHours": "12:00-16:00"
+  },
+  {
+    "name": "Dr. Hani Mohamed",
+    "specialty": "Internal Medicine",
+    "availableDays": ["Sunday", "Tuesday", "Friday"],
+    "availableHours": "09:00-13:00"
+  },
+  {
+    "name": "Dr. Shaima Zakaria",
+    "specialty": "Pediatrics",
+    "availableDays": ["Saturday", "Sunday"],
+    "availableHours": "08:00-12:00"
+  },
+  {
+    "name": "Dr. Magid Sharaf",
+    "specialty": "General Surgery",
+    "availableDays": ["Monday", "Wednesday"],
+    "availableHours": "13:00-17:00"
+  },
+  {
+    "name": "Dr. Hala Abdullah",
+    "specialty": "Psychiatry and Neurology",
+    "availableDays": ["Thursday"],
+    "availableHours": "10:00-14:00"
+  },
+  {
+    "name": "Dr. Mohamed Abdel Rahman",
+    "specialty": "Dentistry",
+    "availableDays": ["Saturday", "Monday"],
+    "availableHours": "11:00-15:00"
+  },
+  {
+    "name": "Dr. Nora Ahmed",
+    "specialty": "Ophthalmology",
+    "availableDays": ["Sunday", "Wednesday"],
+    "availableHours": "09:00-13:00"
+  },
+  {
+    "name": "Dr. Amr Khaled",
+    "specialty": "Oncology",
+    "availableDays": ["Tuesday", "Thursday"],
+    "availableHours": "14:00-18:00"
+  },
+  {
+    "name": "Dr. Sara Mohsen",
+    "specialty": "Speech Therapy",
+    "availableDays": ["Monday", "Friday"],
+    "availableHours": "10:00-14:00"
+  },
+  {
+    "name": "Dr. Ali Hussein",
+    "specialty": "Urology",
+    "availableDays": ["Wednesday", "Saturday"],
+    "availableHours": "08:00-12:00"
+  },
+  {
+    "name": "Dr. Mona Farouk",
+    "specialty": "Rheumatology",
+    "availableDays": ["Sunday", "Tuesday"],
+    "availableHours": "12:00-16:00"
+  },
+  {
+    "name": "Dr. Karim Osama",
+    "specialty": "Plastic Surgery",
+    "availableDays": ["Thursday", "Friday"],
+    "availableHours": "15:00-19:00"
+  },
+  {
+    "name": "Dr. Iman Sabri",
+    "specialty": "Endocrinology",
+    "availableDays": ["Saturday", "Monday"],
+    "availableHours": "09:00-13:00"
+  },
+  {
+    "name": "Dr. Waleed Nasser",
+    "specialty": "Vascular Surgery",
+    "availableDays": ["Wednesday", "Friday"],
+    "availableHours": "11:00-15:00"
+  },
+  {
+    "name": "Dr. Dina Maher",
+    "specialty": "Diet Therapy",
+    "availableDays": ["Tuesday", "Thursday"],
+    "availableHours": "10:00-14:00"
+  },
+  {
+    "name": "Dr. Rami Saad",
+    "specialty": "Neurosurgery",
+    "availableDays": ["Monday", "Wednesday"],
+    "availableHours": "13:00-17:00"
+  },
+  {
+    "name": "Dr. Nadia Kamal",
+    "specialty": "Diabetes and Endocrinology",
+    "availableDays": ["Sunday", "Thursday"],
+    "availableHours": "08:00-12:00"
+  },
+  {
+    "name": "Dr. Tarek Gamal",
+    "specialty": "Thoracic Surgery",
+    "availableDays": ["Tuesday", "Saturday"],
+    "availableHours": "14:00-18:00"
+  },
+  {
+    "name": "Dr. Yasmin Reda",
+    "specialty": "Emergency Medicine",
+    "availableDays": ["Wednesday", "Friday"],
+    "availableHours": "16:00-20:00"
+  },
+  {
+    "name": "Dr. Osama Mohamed",
+    "specialty": "Pediatric Surgery",
+    "availableDays": ["Saturday", "Monday"],
+    "availableHours": "09:00-13:00"
+  },
+  {
+    "name": "Dr. Lamiya Abdel Aziz",
+    "specialty": "Family Medicine",
+    "availableDays": ["Sunday", "Wednesday"],
+    "availableHours": "10:00-14:00"
+  },
+  {
+    "name": "Dr. Khaled Fouad",
+    "specialty": "Cardiac Surgery",
+    "availableDays": ["Thursday", "Friday"],
+    "availableHours": "11:00-15:00"
+  },
+  {
+    "name": "Dr. Samar Helmy",
+    "specialty": "Psychiatry",
+    "availableDays": ["Monday", "Tuesday"],
+    "availableHours": "12:00-16:00"
+  },
+  {
+    "name": "Dr. Nabil Adel",
+    "specialty": "Orthopedic Surgery",
+    "availableDays": ["Wednesday", "Saturday"],
+    "availableHours": "08:00-12:00"
+  },
+  {
+    "name": "Dr. Hadeer Ashraf",
+    "specialty": "Nuclear Medicine",
+    "availableDays": ["Sunday", "Thursday"],
+    "availableHours": "14:00-18:00"
+  },
+  {
+    "name": "Dr. Refaat Suleiman",
+    "specialty": "Maxillofacial Surgery",
+    "availableDays": ["Tuesday", "Friday"],
+    "availableHours": "10:00-14:00"
+  },
+  {
+    "name": "Dr. Jehan Taha",
+    "specialty": "Rheumatology",
+    "availableDays": ["Monday", "Wednesday"],
+    "availableHours": "09:00-13:00"
+  },
+  {
+    "name": "Dr. Said Morsi",
+    "specialty": "Obesity Surgery",
+    "availableDays": ["Saturday", "Sunday"],
+    "availableHours": "11:00-15:00"
+  },
+  {
+    "name": "Dr. Manal Abdullah",
+    "specialty": "Geriatrics",
+    "availableDays": ["Thursday", "Friday"],
+    "availableHours": "13:00-17:00"
+  },
+  {
+    "name": "Dr. Wael Kamel",
+    "specialty": "Cancer Surgery",
+    "availableDays": ["Wednesday", "Saturday"],
+    "availableHours": "15:00-19:00"
+  },
+  {
+    "name": "Dr. Dalia Rami",
+    "specialty": "Sleep Medicine",
+    "availableDays": ["Monday", "Tuesday"],
+    "availableHours": "10:00-14:00"
+  },
+  {
+    "name": "Dr. Adel Mohamadeen",
+    "specialty": "Liver Surgery",
+    "availableDays": ["Sunday", "Thursday"],
+    "availableHours": "08:00-12:00"
+  },
+  {
+    "name": "Dr. Naglaa Saleh",
+    "specialty": "Rehabilitation Medicine",
+    "availableDays": ["Tuesday", "Friday"],
+    "availableHours": "12:00-16:00"
+  },
+  {
+    "name": "Dr. Emad El Din",
+    "specialty": "Rhinoplasty Surgery",
+    "availableDays": ["Monday", "Wednesday"],
+    "availableHours": "14:00-18:00"
+  },
+  {
+    "name": "Dr. Rania Hamdy",
+    "specialty": "Travel Medicine",
+    "availableDays": ["Saturday", "Sunday"],
+    "availableHours": "09:00-13:00"
+  },
+  {
+    "name": "Dr. Sherif Abdel Ghany",
+    "specialty": "Vascular Surgery",
+    "availableDays": ["Thursday", "Friday"],
+    "availableHours": "11:00-15:00"
+  },
+  {
+    "name": "Dr. Marwa Nabil",
+    "specialty": "Neurology",
+    "availableDays": ["Wednesday", "Saturday"],
+    "availableHours": "10:00-14:00"
+  },
+  {
+    "name": "Dr. Asim Hafez",
+    "specialty": "Bariatric Surgery",
+    "availableDays": ["Sunday", "Tuesday"],
+    "availableHours": "13:00-17:00"
+  },
+  {
+    "name": "Dr. Heba Allah",
+    "specialty": "Genetics Medicine",
+    "availableDays": ["Monday", "Thursday"],
+    "availableHours": "08:00-12:00"
+  },
+  {
+    "name": "Dr. Yehia Mostafa",
+    "specialty": "Blood Transfusion Medicine",
+    "availableDays": ["Tuesday", "Saturday"],
+    "availableHours": "14:00-18:00"
+  }
+]
