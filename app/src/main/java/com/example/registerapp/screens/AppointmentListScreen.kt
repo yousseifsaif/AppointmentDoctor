@@ -68,7 +68,6 @@ fun AppointmentListScreen(viewModel: AppointmentViewModel) {
         }
     }
 }
-
 @Composable
 fun AppointmentCard(appointment: Appointment, onDelete: () -> Unit) {
     Card(
