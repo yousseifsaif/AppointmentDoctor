@@ -18,6 +18,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.registerapp.R
+import com.example.registerapp.components.CustomTextInput
+import com.example.registerapp.components.PrimaryButton
+import com.example.registerapp.components.ScreenHeader
 import com.example.registerapp.viewmodel.UserViewModel
 import kotlinx.coroutines.delay
 
@@ -28,7 +31,7 @@ fun LoginScreen(
     onNavigateToRegister: () -> Unit
 ) {
     val context = LocalContext.current
-    var input by remember { mutableStateOf("") }
+    var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val loginState = viewModel.loginState
 
@@ -44,20 +47,22 @@ fun LoginScreen(
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            TitleText(
+            ScreenHeader(
                 title = stringResource(R.string.Welcome),
                 subtitle = stringResource(R.string.Logintocontinoue)
             )
 
-            InputField(
-                value = input,
-                onValueChange = { input = it },
-                label = stringResource(R.string.usernameorpasswordinvalid)
+            Spacer(modifier = Modifier.height(24.dp))
+
+            CustomTextInput(
+                value = username,
+                onValueChange = { username = it },
+                label = stringResource(R.string.username)
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            InputField(
+            CustomTextInput(
                 value = password,
                 onValueChange = { password = it },
                 label = stringResource(R.string.password),
@@ -66,10 +71,9 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            ActionButton(
-                text = stringResource(R.string.login),
-                onClick = { viewModel.loginUser(input, password) }
-            )
+            PrimaryButton(text = stringResource(R.string.login)) {
+                viewModel.loginUser(username, password)
+            }
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -81,7 +85,7 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = loginState,
-                    color = if (loginState.contains("Done") || loginState.contains("Success")) Color(0xFF4CAF50) else Color.Red,
+                    color = if (loginState.contains("Success")) Color(0xFF4CAF50) else Color.Red,
                     fontWeight = FontWeight.SemiBold
                 )
             }
@@ -89,8 +93,11 @@ fun LoginScreen(
             if (loginState == "Login Successfully!") {
                 LaunchedEffect(Unit) {
                     delay(1500)
-                    val sharedPref = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-                    sharedPref.edit().putBoolean("isLoggedIn", true).apply()
+                    context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                        .edit()
+                        .putBoolean("isLoggedIn", true)
+                        .apply()
+
                     onLoginSuccess()
                     viewModel.clearLoginState()
                 }
@@ -99,50 +106,3 @@ fun LoginScreen(
     }
 }
 
-@Composable
-fun TitleText(title: String, subtitle: String) {
-    Text(
-        text = title,
-        fontSize = 28.sp,
-        fontWeight = FontWeight.Bold,
-        color = MaterialTheme.colorScheme.primary
-    )
-    Spacer(modifier = Modifier.height(8.dp))
-    Text(
-        text = subtitle,
-        fontSize = 16.sp,
-        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
-        textAlign = TextAlign.Center
-    )
-    Spacer(modifier = Modifier.height(24.dp))
-}
-
-@Composable
-fun InputField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    label: String,
-    isPassword: Boolean = false
-) {
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        label = { Text(label) },
-        modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(12.dp),
-        visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None
-    )
-}
-
-@Composable
-fun ActionButton(text: String, onClick: () -> Unit) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(50.dp),
-        shape = RoundedCornerShape(14.dp)
-    ) {
-        Text(text, fontSize = 16.sp)
-    }
-}

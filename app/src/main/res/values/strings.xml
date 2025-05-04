@@ -38,5 +38,10 @@
     <string name="mobile">رقم الهاتف</string>
     <string name="conpassword">تأكيد كلمة المرور</string>
     <string name="createaccount">إنشاء الحساب</string>
+    <string name="registered_successfully">تم التسجيل بنجاح!</string>
+    <string name="done_2">تم</string>
+    <string name="success">success</string>
+    <string name="appointments">المواعيد</string>
+    <string name="doctors">الأطباء</string>
 
 </resources>

@@ -16,20 +16,29 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.registerapp.R
+import com.example.registerapp.components.CustomTextInput
+import com.example.registerapp.components.PrimaryButton
+import com.example.registerapp.components.ScreenHeader
 import com.example.registerapp.viewmodel.UserViewModel
 import kotlinx.coroutines.delay
 
 @Composable
-fun RegisterScreen(viewModel: UserViewModel, onRegisterSuccess: () -> Unit) {
-    val context = LocalContext.current
-    var username by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var rePassword by remember { mutableStateOf("") }
-    var mobile by remember { mutableStateOf("") }
-
-    val state = viewModel.registerState
-
+fun RegisterScreen(
+    username: String,
+    onUsernameChange: (String) -> Unit,
+    email: String,
+    onEmailChange: (String) -> Unit,
+    mobile: String,
+    onMobileChange: (String) -> Unit,
+    password: String,
+    onPasswordChange: (String) -> Unit,
+    rePassword: String,
+    onRePasswordChange: (String) -> Unit,
+    registerState: String,
+    onRegisterClick: () -> Unit,
+    onRegisterSuccess: () -> Unit,
+    clearRegisterState: () -> Unit
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -42,104 +51,52 @@ fun RegisterScreen(viewModel: UserViewModel, onRegisterSuccess: () -> Unit) {
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(R.string.createacc),
-                fontSize = 26.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = stringResource(R.string.Pleaseenteryourinformationcarefully),
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
-                textAlign = TextAlign.Center
+            ScreenHeader(
+                title = stringResource(R.string.createacc),
+                subtitle = stringResource(R.string.Pleaseenteryourinformationcarefully)
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            OutlinedTextField(
-                value = username,
-                onValueChange = { username = it },
-                label = { Text(stringResource(R.string.username)) },
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
-            )
-
+            CustomTextInput(value = username, onValueChange = onUsernameChange, label = stringResource(R.string.username))
             Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
-                label = { Text(stringResource(R.string.email)) },
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
-            )
-
+            CustomTextInput(value = email, onValueChange = onEmailChange, label = stringResource(R.string.email))
             Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedTextField(
-                value = mobile,
-                onValueChange = { mobile = it },
-                label = { Text(stringResource(R.string.mobile)) },
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
-            )
-
+            CustomTextInput(value = mobile, onValueChange = onMobileChange, label = stringResource(R.string.mobile))
             Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
-                label = { Text(stringResource(R.string.password)) },
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
-            )
-
+            CustomTextInput(value = password, onValueChange = onPasswordChange, label = stringResource(R.string.password), isPassword = true)
             Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedTextField(
-                value = rePassword,
-                onValueChange = { rePassword = it },
-                label = { Text(stringResource(R.string.conpassword)) },
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
-            )
-
+            CustomTextInput(value = rePassword, onValueChange = onRePasswordChange, label = stringResource(R.string.conpassword), isPassword = true)
             Spacer(modifier = Modifier.height(24.dp))
 
-            Button(
-                onClick = {
-                    viewModel.registerUser(username, email, password, rePassword, mobile)
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                shape = RoundedCornerShape(14.dp)
-            ) {
-                Text(stringResource(R.string.createaccount), fontSize = 16.sp)
-            }
+            PrimaryButton(
+                text = stringResource(R.string.createaccount),
+                onClick = onRegisterClick
+            )
 
-            if (state.isNotEmpty()) {
+            if (registerState.isNotEmpty()) {
                 Spacer(modifier = Modifier.height(12.dp))
                 Text(
-                    text = state,
-                    color = if (state.contains("done", ignoreCase = true) || state.contains("success", ignoreCase = true))
+                    text = registerState,
+                    color = if (registerState.contains(stringResource(R.string.done_2), ignoreCase = true) || registerState.contains(
+                            stringResource(R.string.success), ignoreCase = true))
                         Color(0xFF4CAF50) else Color.Red,
                     fontWeight = FontWeight.SemiBold
                 )
             }
 
-            if (state == "Registered Successfully!") {
+            if (registerState == stringResource(R.string.registered_successfully)) {
                 LaunchedEffect(Unit) {
                     delay(1500)
                     onRegisterSuccess()
-                    viewModel.clearState()
+                    clearRegisterState()
                 }
             }
         }
     }
 }
+

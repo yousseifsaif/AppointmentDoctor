@@ -21,10 +21,12 @@ import androidx.navigation.navigation
 import com.example.registerapp.doctorDatabase.AppDatabase
 import com.example.registerapp.doctorDatabase.AppointmentRepository
 import com.example.registerapp.doctorDatabase.Doctor
+import com.example.registerapp.navigation.AppNavigation
 import com.example.registerapp.navigation.BottomNavItem // تأكد من استيراد هذا
 import com.example.registerapp.navigation.MainScreen // استيراد الـ MainScreen الصحيح
 import com.example.registerapp.screens.* // استيراد جميع الشاشات
 import com.example.registerapp.ui.theme.RegisterAppTheme
+import com.example.registerapp.utils.preloadDoctorsIfNeeded
 import com.example.registerapp.viewmodel.*
 
 class MainActivity : ComponentActivity() {
@@ -34,148 +36,33 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
 
-        val appDatabase = AppDatabase.getDatabase(application)
-        val appointmentDao = appDatabase.appointmentDao()
-        val doctorDao = appDatabase.doctorDao()
 
-        val appointmentRepository = AppointmentRepository(appointmentDao)
+        val appDatabase = AppDatabase.getDatabase(application)
+        val appointmentRepository = AppointmentRepository(appDatabase.appointmentDao())
 
         val doctorViewModelFactory = DoctorViewModelFactory(application)
         val appointmentViewModelFactory = AppointmentViewModelFactory(appointmentRepository)
 
-        preloadDoctorsIfNeeded(this, doctorViewModelFactory)
-
+        preloadDoctorsIfNeeded(applicationContext, doctorViewModelFactory)
         setContent {
             RegisterAppTheme {
-                val sharedPref = getSharedPreferences("MyPrefs", MODE_PRIVATE)
-                var isLoggedIn by rememberSaveable {
-                    mutableStateOf(sharedPref.getBoolean("isLoggedIn", false))
-                }
-
                 val navController = rememberNavController()
+                val mainViewModel: MainViewModel = viewModel()
+                val userViewModel: UserViewModel = viewModel()
 
                 AppNavigation(
                     navController = navController,
-                    isUserLoggedIn = isLoggedIn,
+                    isUserLoggedIn = mainViewModel.isLoggedIn.value,
                     doctorViewModelFactory = doctorViewModelFactory,
                     appointmentViewModelFactory = appointmentViewModelFactory,
-                    userViewModel = viewModel(),
-                    onLoginSuccess = {
-                        sharedPref.edit { putBoolean("isLoggedIn", true) }
-                        isLoggedIn = true
-                        navController.navigate(Graph.MAIN) {
-                            popUpTo(Graph.AUTH) { inclusive = true }
-                        }
-                    },
-                    onLogout = {
-                        sharedPref.edit { putBoolean("isLoggedIn", false) }
-                        isLoggedIn = false
-                        navController.navigate(Graph.AUTH) {
-                            popUpTo(Graph.MAIN) { inclusive = true }
-                        }
-                    })
+                    userViewModel = userViewModel,
+                    onLoginSuccess = mainViewModel::login,
+                    onLogout = mainViewModel::logout
+                )
             }
         }
     }
 
-    private fun preloadDoctorsIfNeeded(
-        context: Context, doctorViewModelFactory: DoctorViewModelFactory
-    ) {
-        val sharedPrefs = context.getSharedPreferences("init_prefs", Context.MODE_PRIVATE)
-        val isFirstRun = sharedPrefs.getBoolean("first_run", true)
 
-        if (isFirstRun) {
-            val tempViewModel: DoctorViewModel =
-                ViewModelProvider(this, doctorViewModelFactory)[DoctorViewModel::class.java]
-
-            val json = context.assets.open("doctors.json").bufferedReader().use { it.readText() }
-            val gson = com.google.gson.Gson()
-            val doctorListType = object : com.google.gson.reflect.TypeToken<List<Doctor>>() {}.type
-            val dummyDoctors: List<Doctor> = gson.fromJson(json, doctorListType)
-
-            dummyDoctors.forEach {
-                tempViewModel.insertDoctor(it)
-            }
-
-            sharedPrefs.edit { putBoolean("first_run", false) }
-        }
-    }
-
-    object Graph {
-        const val AUTH = "auth_graph"
-        const val MAIN = "main_graph"
-    }
-
-    @Composable
-    fun AppNavigation(
-        navController: NavHostController,
-        isUserLoggedIn: Boolean,
-        doctorViewModelFactory: DoctorViewModelFactory,
-        appointmentViewModelFactory: AppointmentViewModelFactory,
-        userViewModel: UserViewModel,
-        onLoginSuccess: () -> Unit,
-        onLogout: () -> Unit
-    ) {
-        val startDestination = if (isUserLoggedIn) Graph.MAIN else Graph.AUTH
-
-        NavHost(
-            navController = navController, startDestination = startDestination
-        ) {
-            navigation(
-                route = Graph.AUTH, startDestination = "login"
-            ) {
-                composable("login") {
-                    LoginScreen(
-                        viewModel = userViewModel,
-                        onLoginSuccess = onLoginSuccess,
-                        onNavigateToRegister = {
-                            navController.navigate("register")
-                        })
-                }
-                composable("register") {
-                    RegisterScreen(
-                        viewModel = userViewModel, onRegisterSuccess = {
-                            val sharedPref = navController.context.getSharedPreferences(
-                                "MyPrefs", Context.MODE_PRIVATE
-                            )
-                            sharedPref.edit().putBoolean("isLoggedIn", true).apply()
-                            navController.navigate(Graph.MAIN) {
-                                popUpTo(Graph.AUTH) {
-                                    inclusive = true
-                                }
-                            }
-                        })
-                }
-            }
-
-            navigation(
-                route = Graph.MAIN, startDestination = BottomNavItem.DoctorList.route
-            ) {
-                composable(BottomNavItem.DoctorList.route) {
-
-                    val doctorViewModel: DoctorViewModel =
-                        viewModel(factory = doctorViewModelFactory)
-                    val appointmentViewModel: AppointmentViewModel =
-                        viewModel(factory = appointmentViewModelFactory)
-                    MainScreen(
-                        navController = navController,
-                        doctorViewModel = doctorViewModel,
-                        appointmentViewModel = appointmentViewModel,
-                        userViewModel = userViewModel,
-                        onLogout = {
-                            val sharedPref = navController.context.getSharedPreferences(
-                                "MyPrefs", Context.MODE_PRIVATE
-                            )
-                            sharedPref.edit().putBoolean("isLoggedIn", false).apply()
-                            navController.navigate("login") {
-                                popUpTo("doctorList") { inclusive = true }
-                            }
-                        })
-
-                }
-
-            }
-        }
-    }
 }
 

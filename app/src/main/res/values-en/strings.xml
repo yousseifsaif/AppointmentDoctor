@@ -39,4 +39,9 @@
     <string name="mobile">Mobile number</string>
     <string name="conpassword">Confirm password</string>
     <string name="createaccount">Create Account</string>
+    <string name="registered_successfully">Registered Successfully!</string>
+    <string name="done_2">done</string>
+    <string name="success">success</string>
+    <string name="appointments">Appointments</string>
+    <string name="doctors">Doctors</string>
 </resources>
