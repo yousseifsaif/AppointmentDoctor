@@ -43,7 +43,11 @@ class MainActivity : ComponentActivity() {
         val doctorViewModelFactory = DoctorViewModelFactory(application)
         val appointmentViewModelFactory = AppointmentViewModelFactory(appointmentRepository)
 
-        preloadDoctorsIfNeeded(applicationContext, doctorViewModelFactory)
+        preloadDoctorsIfNeeded(
+            owner = this,
+            context = this,
+            doctorViewModelFactory = doctorViewModelFactory
+        )
         setContent {
             RegisterAppTheme {
                 val navController = rememberNavController()
