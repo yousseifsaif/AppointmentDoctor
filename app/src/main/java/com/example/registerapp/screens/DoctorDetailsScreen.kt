@@ -32,6 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieComposition
@@ -52,13 +53,15 @@ fun DoctorDetailsScreen(
     var selectedTime by remember { mutableStateOf("") }
     var showSuccessDialog by remember { mutableStateOf(false) }
 
-    val timeSlots = listOf(stringResource(R.string._10_00am),
-        stringResource(R.string._12_00pm), stringResource(R.string._3_00pm),
+    val timeSlots = listOf(
+        stringResource(R.string._10_00am),
+        stringResource(R.string._12_00pm),
+        stringResource(R.string._3_00pm),
         stringResource(R.string._5_00pm)
     )
 
     val successComposition by rememberLottieComposition(
-        LottieCompositionSpec.RawRes(com.example.registerapp.R.raw.success_animation)
+        LottieCompositionSpec.RawRes(R.raw.success_animation)
     )
 
     doctor?.let { doc ->
@@ -75,33 +78,13 @@ fun DoctorDetailsScreen(
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
-            Text(
-                text = stringResource(R.string.choosetheday),
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
+            SectionTitle(stringResource(R.string.choosetheday))
 
             LazyRow {
                 items(doc.availableDays) { day ->
-                    Card(
-                        modifier = Modifier
-                            .padding(4.dp)
-                            .clickable {
-                                selectedDay = day
-                                selectedTime = ""
-                            },
-                        colors = CardDefaults.cardColors(
-                            containerColor = if (selectedDay == day)
-                                MaterialTheme.colorScheme.primary
-                            else
-                                MaterialTheme.colorScheme.surface
-                        )
-                    ) {
-                        Text(
-                            text = day,
-                            style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(12.dp)
-                        )
+                    DayCard(day = day, isSelected = selectedDay == day) {
+                        selectedDay = day
+                        selectedTime = ""
                     }
                 }
             }
@@ -109,29 +92,12 @@ fun DoctorDetailsScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             if (selectedDay.isNotEmpty()) {
-                Text(
-                    text = stringResource(R.string.choosethetime),
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
+                SectionTitle(stringResource(R.string.choosethetime))
 
                 LazyColumn {
                     items(timeSlots) { time ->
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable { selectedTime = time }
-                                .padding(8.dp)
-                        ) {
-                            RadioButton(
-                                selected = selectedTime == time,
-                                onClick = { selectedTime = time }
-                            )
-                            Text(
-                                text = time,
-                                style = MaterialTheme.typography.bodyMedium
-                            )
+                        TimeRow(time = time, isSelected = selectedTime == time) {
+                            selectedTime = time
                         }
                     }
                 }
@@ -153,54 +119,122 @@ fun DoctorDetailsScreen(
     }
 
     if (showSuccessDialog) {
-        AlertDialog(
-            onDismissRequest = { showSuccessDialog = false },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        showSuccessDialog = false
-                        navController.popBackStack()
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(stringResource(R.string.done))
-                }
-            },
-            title = {
-                Text(
-                    text = stringResource(R.string.Yourreservationhasbeencompletedsuccessfully),
-                    modifier = Modifier.fillMaxWidth(),
-                    style = MaterialTheme.typography.headlineSmall
-                )
-            },
-            text = {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    LottieAnimation(
-                        composition = successComposition,
-                        iterations = 1,
-                        modifier = Modifier.size(120.dp)
-                    )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(
-                        text = stringResource(R.string.Yourappointmenthasbeensuccessfullyconfirmed),
-                        style = MaterialTheme.typography.bodyLarge,
-                        textAlign = TextAlign.Center,
-                    )
-                    Text(
-                        text = "Doctor: ${doctor?.name}",
-                        style = MaterialTheme.typography.bodyMedium,
-                        textAlign = TextAlign.Start,
-                    )
-                    Text(
-                        text = stringResource(R.string.time1, selectedDay, selectedTime),
-                        style = MaterialTheme.typography.bodyMedium,
-                        textAlign = TextAlign.Start,
-                    )
-                }
+        SuccessDialog(
+            doctorName = doctor?.name.orEmpty(),
+            selectedDay = selectedDay,
+            selectedTime = selectedTime,
+            composition = successComposition,
+            onDismiss = {
+                showSuccessDialog = false
+                navController.popBackStack()
             }
         )
     }
+}
+@Composable
+fun SectionTitle(text: String) {
+    Text(
+        text = text,
+        style = MaterialTheme.typography.titleMedium,
+        modifier = Modifier.padding(bottom = 8.dp)
+    )
+}
+
+@Composable
+fun DayCard(day: String, isSelected: Boolean, onClick: () -> Unit) {
+    Card(
+        modifier = Modifier
+            .padding(4.dp)
+            .clickable { onClick() },
+        colors = CardDefaults.cardColors(
+            containerColor = if (isSelected)
+                MaterialTheme.colorScheme.primary
+            else
+                MaterialTheme.colorScheme.surface
+        )
+    ) {
+        Text(
+            text = day,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(12.dp)
+        )
+    }
+}
+
+@Composable
+fun TimeRow(time: String, isSelected: Boolean, onClick: () -> Unit) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(8.dp)
+    ) {
+        RadioButton(
+            selected = isSelected,
+            onClick = { onClick() }
+        )
+        Text(
+            text = time,
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+@Composable
+fun SuccessDialog(
+    doctorName: String,
+    selectedDay: String,
+    selectedTime: String,
+    composition: LottieComposition?,
+    onDismiss: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = { },
+        confirmButton = {
+            Button(
+                onClick = onDismiss,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(R.string.done))
+            }
+        },
+        title = {
+            Text(
+                text = stringResource(R.string.Yourreservationhasbeencompletedsuccessfully),
+                modifier = Modifier.fillMaxWidth(),
+                style = MaterialTheme.typography.headlineSmall
+            )
+        },
+        text = {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                if (composition != null) {
+                    LottieAnimation(
+                        composition = composition,
+                        iterations = 1,
+                        modifier = Modifier.size(120.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = stringResource(R.string.Yourappointmenthasbeensuccessfullyconfirmed),
+                    style = MaterialTheme.typography.bodyLarge,
+                    textAlign = TextAlign.Center
+                )
+                Text(
+                    text = "Doctor: $doctorName",
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Start
+                )
+                Text(
+                    text = stringResource(R.string.time1, selectedDay, selectedTime),
+                    style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Start
+                )
+            }
+        }
+    )
 }

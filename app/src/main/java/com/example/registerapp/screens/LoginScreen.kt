@@ -13,6 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,51 +44,32 @@ fun LoginScreen(
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(R.string.Welcome),
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary
+            TitleText(
+                title = stringResource(R.string.Welcome),
+                subtitle = stringResource(R.string.Logintocontinoue)
             )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = stringResource(R.string.Logintocontinoue),
-                fontSize = 16.sp,
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(24.dp))
 
-            OutlinedTextField(
+            InputField(
                 value = input,
                 onValueChange = { input = it },
-                label = { Text(stringResource(R.string.usernameorpasswordinvalid)) },
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
+                label = stringResource(R.string.usernameorpasswordinvalid)
             )
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            OutlinedTextField(
+            InputField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text(stringResource(R.string.password)) },
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(12.dp)
+                label = stringResource(R.string.password),
+                isPassword = true
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Button(
-                onClick = { viewModel.loginUser(input, password) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(50.dp),
-                shape = RoundedCornerShape(14.dp)
-            ) {
-                Text(stringResource(R.string.login), fontSize = 16.sp)
-            }
+            ActionButton(
+                text = stringResource(R.string.login),
+                onClick = { viewModel.loginUser(input, password) }
+            )
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -114,5 +96,53 @@ fun LoginScreen(
                 }
             }
         }
+    }
+}
+
+@Composable
+fun TitleText(title: String, subtitle: String) {
+    Text(
+        text = title,
+        fontSize = 28.sp,
+        fontWeight = FontWeight.Bold,
+        color = MaterialTheme.colorScheme.primary
+    )
+    Spacer(modifier = Modifier.height(8.dp))
+    Text(
+        text = subtitle,
+        fontSize = 16.sp,
+        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.7f),
+        textAlign = TextAlign.Center
+    )
+    Spacer(modifier = Modifier.height(24.dp))
+}
+
+@Composable
+fun InputField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    isPassword: Boolean = false
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(label) },
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(12.dp),
+        visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None
+    )
+}
+
+@Composable
+fun ActionButton(text: String, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp),
+        shape = RoundedCornerShape(14.dp)
+    ) {
+        Text(text, fontSize = 16.sp)
     }
 }
