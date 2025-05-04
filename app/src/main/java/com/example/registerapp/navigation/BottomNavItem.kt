@@ -8,7 +8,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.registerapp.R
 
-sealed class BottomNavItem(val route: String, val title: Int, val icon: ImageVector) {
-    object DoctorList : BottomNavItem("doctorList", R.string.doctors, Icons.Default.Home)
-    object Appointments : BottomNavItem("appointments", R.string.appointments, Icons.Default.DateRange)
+sealed class BottomNavItem(val route: String, val title: Int, val iconRes: Int) {
+    object DoctorList : BottomNavItem("doctorList", R.string.doctors, R.drawable.doctor)
+    object Appointments : BottomNavItem("appointments", R.string.appointments, R.drawable.calender)
 }

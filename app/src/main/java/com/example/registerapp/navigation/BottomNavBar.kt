@@ -4,6 +4,7 @@ package com.example.registerapp.navigation
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -22,7 +23,7 @@ fun BottomNavBar(navController: NavHostController) {
 
         items.forEach { item ->
             NavigationBarItem(
-                icon = { Icon(item.icon, contentDescription = stringResource(item.title)) },
+                icon = { Icon( painter = painterResource(id = item.iconRes), contentDescription = stringResource(item.title)) },
                 label = { Text(stringResource(item.title)) },
                 selected = currentRoute == item.route,
                 onClick = {

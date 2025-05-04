@@ -4,7 +4,7 @@
     <string name="nav1">Appointment</string>
     <string name="dontHaveAccount">Don\'t have an account? Create one now</string>
     <string name="Welcome">Welcome 👋</string>
-    <string name="Logintocontinoue">Log in to continue</string>
+    <string name="Logintocontinoue">Login to continue</string>
     <string name="usernameorpasswordinvalid">Invalid username or email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
