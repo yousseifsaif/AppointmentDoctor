@@ -84,7 +84,6 @@ fun BaseScaffoldContent(
         }
     }
 }
-
 @Composable
 fun BaseCard(content: @Composable () -> Unit) {
     Card(
